@@ -62,6 +62,31 @@
 .screen__name { color: #ffff00; font-weight: bold; }
 .screen__score-val { color: #00ff88; text-align: right; }
 
+.screen__score-row--top .screen__name,
+.screen__score-row--top .screen__score-val {
+  color: #00ffcc;
+  text-shadow: 0 0 8px #00ffcc;
+}
+.screen__score-row--top .screen__rank { color: #00ffcc; }
+
+.screen__leaderboard-header {
+  display: grid;
+  grid-template-columns: 28px 1fr 80px;
+  gap: 8px;
+  padding: 0 0 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #1a3a5c;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: #335577;
+}
+
+.screen__empty {
+  color: #335577;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 .screen__initials-entry {
   display: flex;
   align-items: center;

@@ -3,6 +3,7 @@ import { GameCanvas } from './GameCanvas'
 import { InputBar } from './InputBar'
 import { HUD } from './HUD'
 import { StartScreen } from './StartScreen'
+import { LeaderboardScreen } from './LeaderboardScreen'
 import { GameOverScreen } from './GameOverScreen'
 import { useGameLoop, TICK_MS } from '../hooks/useGameLoop'
 import { useWordBank } from '../hooks/useWordBank'
@@ -136,11 +137,15 @@ export function Game() {
   }
 
   if (gamePhase === 'start') {
-    return <StartScreen onStart={startGame} />
+    return <StartScreen onStart={() => setGamePhase('leaderboard')} />
+  }
+
+  if (gamePhase === 'leaderboard') {
+    return <LeaderboardScreen onPlay={startGame} />
   }
 
   if (gamePhase === 'gameOver') {
-    return <GameOverScreen score={score} onRestart={startGame} />
+    return <GameOverScreen score={score} onRestart={() => setGamePhase('leaderboard')} />
   }
 
   return (
