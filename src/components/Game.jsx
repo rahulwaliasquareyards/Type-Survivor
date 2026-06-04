@@ -3,11 +3,11 @@ import { GameCanvas } from './GameCanvas'
 import { InputBar } from './InputBar'
 import { HUD } from './HUD'
 import { StartScreen } from './StartScreen'
-import { LeaderboardScreen } from './LeaderboardScreen'
 import { GameOverScreen } from './GameOverScreen'
 import { useGameLoop, TICK_MS } from '../hooks/useGameLoop'
 import { useWordBank } from '../hooks/useWordBank'
 import { getDifficultyConfig, CANVAS_HEIGHT } from '../lib/levelConfig'
+import { saveScore, qualifiesForLeaderboard } from '../lib/highScores'
 import { sounds } from '../lib/sounds'
 import { speak, cancelSpeech } from '../lib/voice'
 import './Game.css'
@@ -33,11 +33,13 @@ export function Game() {
   const [laserBeams, setLaserBeams] = useState([])
   const [muted, setMuted] = useState(false)
   const [voiceEnabled, setVoiceEnabled] = useState(false)
+  const [playerName, setPlayerName] = useState('')
 
   const aliensRef = useRef([])
   const scoreRef = useRef(0)
   const mutedRef = useRef(false)
   const voiceEnabledRef = useRef(false)
+  const playerNameRef = useRef('')
   const alienIdRef = useRef(0)
   const explosionIdRef = useRef(0)
   const laserBeamIdRef = useRef(0)
@@ -56,6 +58,9 @@ export function Game() {
     if (lives <= 0 && gamePhase === 'playing') {
       if (!mutedRef.current) sounds.gameOver()
       cancelSpeech()
+      if (scoreRef.current > 0 && playerNameRef.current) {
+        saveScore(playerNameRef.current, scoreRef.current)
+      }
       setGamePhase('gameOver')
     }
   }, [lives, gamePhase])
@@ -122,7 +127,9 @@ export function Game() {
     setLaserBeams(prev => prev.filter(b => b.id !== beamId))
   }, [])
 
-  function startGame() {
+  function startGame(name = playerName) {
+    playerNameRef.current = name
+    setPlayerName(name)
     alienIdRef.current = 0
     explosionIdRef.current = 0
     scoreRef.current = 0
@@ -137,15 +144,11 @@ export function Game() {
   }
 
   if (gamePhase === 'start') {
-    return <StartScreen onStart={() => setGamePhase('leaderboard')} />
-  }
-
-  if (gamePhase === 'leaderboard') {
-    return <LeaderboardScreen onPlay={startGame} />
+    return <StartScreen onStart={startGame} />
   }
 
   if (gamePhase === 'gameOver') {
-    return <GameOverScreen score={score} onRestart={() => setGamePhase('leaderboard')} />
+    return <GameOverScreen score={score} playerName={playerName} onRestart={() => setGamePhase('start')} />
   }
 
   return (
