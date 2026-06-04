@@ -8,6 +8,7 @@ import { useGameLoop, TICK_MS } from '../hooks/useGameLoop'
 import { useWordBank } from '../hooks/useWordBank'
 import { getDifficultyConfig, CANVAS_HEIGHT } from '../lib/levelConfig'
 import { sounds } from '../lib/sounds'
+import { speak, cancelSpeech } from '../lib/voice'
 import './Game.css'
 
 const INITIAL_LIVES = 3
@@ -29,16 +30,20 @@ export function Game() {
   const [aliens, setAliens] = useState([])
   const [explosions, setExplosions] = useState([])
   const [muted, setMuted] = useState(false)
+  const [voiceEnabled, setVoiceEnabled] = useState(false)
 
   const aliensRef = useRef([])
   const scoreRef = useRef(0)
   const mutedRef = useRef(false)
+  const voiceEnabledRef = useRef(false)
+  const lastSpokenAlienRef = useRef(null)
   const alienIdRef = useRef(0)
   const explosionIdRef = useRef(0)
 
   useEffect(() => { aliensRef.current = aliens }, [aliens])
   useEffect(() => { scoreRef.current = score }, [score])
   useEffect(() => { mutedRef.current = muted }, [muted])
+  useEffect(() => { voiceEnabledRef.current = voiceEnabled }, [voiceEnabled])
 
   const tier = Math.floor(score / 150) + 1
   const getWord = useWordBank(tier)
@@ -48,6 +53,7 @@ export function Game() {
   useEffect(() => {
     if (lives <= 0 && gamePhase === 'playing') {
       if (!mutedRef.current) sounds.gameOver()
+      cancelSpeech()
       setGamePhase('gameOver')
     }
   }, [lives, gamePhase])
@@ -80,6 +86,16 @@ export function Game() {
   useGameLoop(gamePhase === 'playing', onTickRef)
 
   const handleTarget = useCallback((alienId) => {
+    // Speak the newly targeted word (outside setState to avoid StrictMode double-call)
+    if (alienId && alienId !== lastSpokenAlienRef.current && voiceEnabledRef.current) {
+      const alien = aliensRef.current.find(a => a.id === alienId)
+      if (alien) {
+        speak(alien.word)
+        lastSpokenAlienRef.current = alienId
+      }
+    }
+    if (!alienId) lastSpokenAlienRef.current = null
+
     setAliens(prev => {
       const next = prev.map(a => ({ ...a, isTargeted: a.id === alienId }))
       aliensRef.current = next
@@ -112,6 +128,8 @@ export function Game() {
     explosionIdRef.current = 0
     scoreRef.current = 0
     aliensRef.current = []
+    lastSpokenAlienRef.current = null
+    cancelSpeech()
     setScore(0)
     setLives(INITIAL_LIVES)
     setAliens([])
@@ -129,7 +147,14 @@ export function Game() {
 
   return (
     <div className="game">
-      <HUD score={score} lives={lives} muted={muted} onToggleMute={() => setMuted(m => !m)} />
+      <HUD
+        score={score}
+        lives={lives}
+        muted={muted}
+        onToggleMute={() => setMuted(m => !m)}
+        voiceEnabled={voiceEnabled}
+        onToggleVoice={() => setVoiceEnabled(v => !v)}
+      />
       <div style={{ position: 'relative', flex: 1 }}>
         <GameCanvas aliens={aliens} explosions={explosions} onExplosionDone={handleExplosionDone} />
       </div>

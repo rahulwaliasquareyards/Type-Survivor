@@ -29,3 +29,22 @@
   font-size: 1rem;
 }
 .hud__mute:hover { border-color: #00ff88; }
+
+.hud__voice {
+  background: none;
+  border: 1px solid #1a3a5c;
+  color: #557799;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 1rem;
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.hud__voice:hover { border-color: #00ffcc; opacity: 1; }
+.hud__voice--on {
+  border-color: #00ffcc;
+  color: #00ffcc;
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+}
