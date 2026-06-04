@@ -1,0 +1,113 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 100%;
+  padding: 40px 20px;
+  font-family: 'Courier New', monospace;
+  color: #00ff88;
+  background: #000510;
+}
+
+.screen__title {
+  font-size: 3rem;
+  letter-spacing: 8px;
+  color: #00ffcc;
+  text-shadow: 0 0 20px #00ffcc, 0 0 40px #007755;
+  margin: 0;
+}
+
+.screen__subtitle {
+  color: #88ccff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.screen__instructions {
+  text-align: center;
+  color: #557799;
+  line-height: 1.8;
+}
+
+.screen__instructions p { margin: 0; }
+
+.screen__leaderboard {
+  border: 1px solid #1a3a5c;
+  border-radius: 8px;
+  padding: 16px 24px;
+  min-width: 280px;
+}
+
+.screen__leaderboard h2 {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  color: #557799;
+  text-align: center;
+}
+
+.screen__score-row {
+  display: grid;
+  grid-template-columns: 24px 60px 1fr 60px;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #0a1a2c;
+  font-size: 0.9rem;
+}
+
+.screen__rank { color: #557799; }
+.screen__initials { color: #ffff00; font-weight: bold; }
+.screen__score-val { color: #00ff88; text-align: right; }
+.screen__level-val { color: #88ccff; text-align: right; }
+
+.screen__initials-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 1px solid #ffff00;
+  border-radius: 8px;
+}
+
+.screen__initials-entry p { margin: 0; color: #ffff00; }
+
+.screen__initials-input {
+  width: 60px;
+  background: rgba(255, 255, 0, 0.05);
+  border: 1px solid #ffff00;
+  color: #ffff00;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 6px;
+  border-radius: 4px;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.screen__btn {
+  background: transparent;
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  padding: 12px 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.screen__btn:hover {
+  background: rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.4);
+}
+
+.screen__btn--small {
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  letter-spacing: 2px;
+}
