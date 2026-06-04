@@ -9,13 +9,6 @@ export function StartScreen({ onStart }) {
       <h1 className="screen__title">KEYBOARD WARRIOR</h1>
       <p className="screen__subtitle">Defend your base — type words to blast the aliens!</p>
 
-      <div className="screen__instructions">
-        <p>Aliens descend from above carrying words.</p>
-        <p>Start typing — the matching alien lights up.</p>
-        <p>Finish the word to destroy it.</p>
-        <p>Don't let them reach the bottom!</p>
-      </div>
-
       {scores.length > 0 && (
         <div className="screen__leaderboard">
           <h2>Leaderboard</h2>
