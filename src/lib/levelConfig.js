@@ -11,10 +11,10 @@ export function getLevelConfig(level) {
 }
 
 export function getDifficultyConfig(score) {
-  const tier = Math.min(Math.floor(score / 150), 10) // freeze difficulty at score 1500
+  const tier = Math.min(Math.floor(score / 200), 15) // freeze at score 3000
   return {
     tier: tier + 1,
-    maxSimultaneous: Math.min(2 + Math.floor(tier / 2), 6),
-    descendDuration: Math.max(18000 - tier * 1200, 8000), // min 8 sec to cross — keeps words readable
+    maxSimultaneous: Math.min(2 + Math.floor(tier / 3), 6),
+    descendDuration: Math.max(18000 - tier * 600, 9000), // gentle ramp, min 9s
   }
 }
