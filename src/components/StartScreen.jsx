@@ -16,8 +16,6 @@ export function StartScreen({ onStart }) {
   return (
     <div className="screen">
       <h1 className="screen__title">KEYBOARD WARRIOR</h1>
-      <p className="screen__subtitle">Defend your base — type words to blast the aliens!</p>
-
       {showInput && (
         <input
           className="screen__name-input"
@@ -25,7 +23,7 @@ export function StartScreen({ onStart }) {
           value={name}
           onChange={e => setName(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handlePlayClick()}
-          placeholder="Enter your name"
+          placeholder="Name"
           autoFocus
         />
       )}
