@@ -1,0 +1,15 @@
+.explosion {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: burst 600ms ease-out forwards;
+}
+
+@keyframes burst {
+  0%   { background: radial-gradient(circle, #fff 0%, #ffcc00 30%, #ff6600 60%, transparent 100%); transform: translate(-50%, -50%) scale(0.1); opacity: 1; }
+  40%  { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
