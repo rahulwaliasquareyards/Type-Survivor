@@ -1,0 +1,16 @@
+export const codeWords = [
+  'const', 'let', 'var', 'async', 'await', 'class', 'import', 'export', 'return',
+  'typeof', 'null', 'true', 'false', 'void', 'super', 'break', 'switch', 'catch',
+  'fetch', 'then', 'new', 'this', 'throw', 'yield', 'delete', 'default',
+  'extends', 'static', 'interface', 'readonly', 'private', 'public', 'protected',
+  'forEach', 'filter', 'reduce', 'includes', 'indexOf', 'splice', 'toString',
+  'promise', 'resolve', 'reject', 'callback', 'closure', 'prototype', 'constructor',
+  'dispatch', 'payload', 'action', 'reducer', 'selector', 'context', 'provider',
+  'useState', 'useEffect', 'useRef', 'useCallback', 'useMemo', 'useContext',
+  'props', 'render', 'module', 'require', 'exports', 'function', 'instanceof',
+  'string', 'number', 'boolean', 'object', 'array', 'undefined', 'symbol',
+  'spread', 'optional', 'nullish', 'template', 'literal', 'abstract', 'declare',
+  'namespace', 'enum', 'generic', 'override', 'implement',
+  'middleware', 'endpoint', 'request', 'response', 'headers', 'params', 'query',
+  'schema', 'validate', 'serialize', 'deserialize', 'migrate', 'transaction',
+]
