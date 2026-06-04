@@ -1,0 +1,24 @@
+.laser-beam {
+  position: absolute;
+  width: 3px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #00ffcc 15%,
+    rgba(0, 255, 200, 0.5) 70%,
+    rgba(0, 255, 200, 0.1) 100%
+  );
+  box-shadow: 0 0 6px #00ffcc, 0 0 16px rgba(0, 255, 200, 0.6);
+  animation: beam-flash 320ms ease-out forwards;
+  transform-origin: top center;
+}
+
+@keyframes beam-flash {
+  0%   { opacity: 0;   transform: translateX(-50%) scaleX(4); }
+  12%  { opacity: 1;   transform: translateX(-50%) scaleX(4); }
+  35%  { opacity: 1;   transform: translateX(-50%) scaleX(1); }
+  100% { opacity: 0;   transform: translateX(-50%) scaleX(1); }
+}

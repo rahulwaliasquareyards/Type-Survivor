@@ -29,6 +29,7 @@ export function Game() {
   const [lives, setLives] = useState(INITIAL_LIVES)
   const [aliens, setAliens] = useState([])
   const [explosions, setExplosions] = useState([])
+  const [laserBeams, setLaserBeams] = useState([])
   const [muted, setMuted] = useState(false)
   const [voiceEnabled, setVoiceEnabled] = useState(false)
 
@@ -39,6 +40,7 @@ export function Game() {
   const lastSpokenAlienRef = useRef(null)
   const alienIdRef = useRef(0)
   const explosionIdRef = useRef(0)
+  const laserBeamIdRef = useRef(0)
 
   useEffect(() => { aliensRef.current = aliens }, [aliens])
   useEffect(() => { scoreRef.current = score }, [score])
@@ -110,6 +112,8 @@ export function Game() {
 
       const expId = ++explosionIdRef.current
       setExplosions(exps => [...exps, { id: expId, x: alien.x, y: alien.y }])
+      const beamId = ++laserBeamIdRef.current
+      setLaserBeams(beams => [...beams, { id: beamId, x: alien.x, y: alien.y }])
       setScore(s => s + alien.word.length * 10)
       if (!mutedRef.current) sounds.laser()
 
@@ -123,6 +127,10 @@ export function Game() {
     setExplosions(prev => prev.filter(e => e.id !== expId))
   }, [])
 
+  const handleBeamDone = useCallback((beamId) => {
+    setLaserBeams(prev => prev.filter(b => b.id !== beamId))
+  }, [])
+
   function startGame() {
     alienIdRef.current = 0
     explosionIdRef.current = 0
@@ -134,6 +142,7 @@ export function Game() {
     setLives(INITIAL_LIVES)
     setAliens([])
     setExplosions([])
+    setLaserBeams([])
     setGamePhase('playing')
   }
 
@@ -156,7 +165,13 @@ export function Game() {
         onToggleVoice={() => setVoiceEnabled(v => !v)}
       />
       <div style={{ position: 'relative', flex: 1 }}>
-        <GameCanvas aliens={aliens} explosions={explosions} onExplosionDone={handleExplosionDone} />
+        <GameCanvas
+          aliens={aliens}
+          explosions={explosions}
+          onExplosionDone={handleExplosionDone}
+          laserBeams={laserBeams}
+          onBeamDone={handleBeamDone}
+        />
       </div>
       <InputBar aliens={aliens} onTarget={handleTarget} onKill={handleKill} />
     </div>

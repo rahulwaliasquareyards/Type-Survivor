@@ -1,5 +1,6 @@
 import { Alien } from './Alien'
 import { Explosion } from './Explosion'
+import { LaserBeam } from './LaserBeam'
 import './GameCanvas.css'
 
 const STARS = Array.from({ length: 120 }, (_, i) => ({
@@ -12,7 +13,7 @@ const STARS = Array.from({ length: 120 }, (_, i) => ({
   twinkleDelay: -(i % 4),
 }))
 
-export function GameCanvas({ aliens = [], explosions = [], onExplosionDone }) {
+export function GameCanvas({ aliens = [], explosions = [], onExplosionDone, laserBeams = [], onBeamDone }) {
   return (
     <div className="game-canvas">
       <div className="starfield" aria-hidden="true">
@@ -33,6 +34,15 @@ export function GameCanvas({ aliens = [], explosions = [], onExplosionDone }) {
 
       {aliens.map(alien => (
         <Alien key={alien.id} {...alien} />
+      ))}
+
+      {laserBeams.map(beam => (
+        <LaserBeam
+          key={beam.id}
+          x={beam.x}
+          y={beam.y}
+          onDone={() => onBeamDone(beam.id)}
+        />
       ))}
 
       {explosions.map(exp => (
