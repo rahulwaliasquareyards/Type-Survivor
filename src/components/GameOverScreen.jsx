@@ -22,14 +22,14 @@ export function GameOverScreen({ score, onRestart }) {
 
       {qualifies && !saved && score > 0 && (
         <div className="screen__initials-entry">
-          <p>You made the leaderboard!</p>
+          <p>You made the leaderboard! Enter your first name:</p>
           <input
             className="screen__name-input"
             maxLength={12}
             value={name}
             onChange={e => setName(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleSave()}
-            placeholder="Your name"
+            placeholder="First name"
             autoFocus
           />
           <button className="screen__btn screen__btn--small" onClick={handleSave}>
