@@ -11,10 +11,10 @@ describe('Explosion', () => {
     expect(container.firstChild).toHaveStyle({ left: '45%', top: '200px' })
   })
 
-  it('calls onDone after 600ms', () => {
+  it('calls onDone after 750ms', () => {
     const onDone = vi.fn()
     render(<Explosion x={50} y={100} onDone={onDone} />)
-    vi.advanceTimersByTime(599)
+    vi.advanceTimersByTime(749)
     expect(onDone).not.toHaveBeenCalled()
     vi.advanceTimersByTime(1)
     expect(onDone).toHaveBeenCalledOnce()
