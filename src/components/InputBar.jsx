@@ -31,6 +31,7 @@ export function InputBar({ aliens, onTarget, onKill }) {
         ref={inputRef}
         className="input-bar__input"
         onChange={handleChange}
+        onKeyDown={e => e.key === ' ' && e.preventDefault()}
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="off"
