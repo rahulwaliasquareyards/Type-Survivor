@@ -140,7 +140,7 @@ export function Game() {
   }
 
   if (gamePhase === 'gameOver') {
-    return <GameOverScreen score={score} onRestart={() => setGamePhase('start')} />
+    return <GameOverScreen score={score} onRestart={startGame} />
   }
 
   return (
