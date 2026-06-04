@@ -1,0 +1,31 @@
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid #1a3a5c;
+  font-family: 'Courier New', monospace;
+  color: #00ff88;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.hud__level { color: #88ccff; }
+.hud__score { flex: 1; }
+
+.hud__lives { display: flex; gap: 4px; }
+.hud__life { font-size: 1.2rem; transition: opacity 0.2s; }
+.hud__life--empty { opacity: 0.2; filter: grayscale(1); }
+
+.hud__mute {
+  background: none;
+  border: 1px solid #1a3a5c;
+  color: #88ccff;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 1rem;
+}
+.hud__mute:hover { border-color: #00ff88; }
