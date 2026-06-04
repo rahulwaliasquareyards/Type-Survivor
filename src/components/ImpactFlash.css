@@ -1,0 +1,24 @@
+.impact-flash {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  height: 60px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 15;
+  background: radial-gradient(ellipse at bottom,
+    rgba(255, 50, 0, 0.95) 0%,
+    rgba(255, 100, 0, 0.6) 40%,
+    transparent 75%
+  );
+  box-shadow: 0 0 20px rgba(255, 50, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.4);
+  animation: impact-burst 600ms ease-out forwards;
+  transform-origin: bottom center;
+}
+
+@keyframes impact-burst {
+  0%   { transform: translateX(-50%) scaleX(0.3) scaleY(0.2); opacity: 1; }
+  25%  { transform: translateX(-50%) scaleX(1.4) scaleY(1.2); opacity: 1; }
+  60%  { transform: translateX(-50%) scaleX(1)   scaleY(1);   opacity: 0.7; }
+  100% { transform: translateX(-50%) scaleX(1.6) scaleY(0.3); opacity: 0; }
+}

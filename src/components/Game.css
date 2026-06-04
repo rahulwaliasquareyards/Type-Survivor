@@ -6,6 +6,23 @@
   background: #000510;
 }
 
+.game__danger-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  animation: danger-vignette 500ms ease-out forwards;
+  box-shadow: inset 0 0 80px rgba(255, 0, 0, 0.7),
+              inset 0 0 160px rgba(255, 0, 0, 0.3);
+  border: 3px solid rgba(255, 60, 60, 0.9);
+}
+
+@keyframes danger-vignette {
+  0%   { opacity: 1; }
+  40%  { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
 .game--shake {
   animation: screen-shake 280ms ease-in-out;
 }

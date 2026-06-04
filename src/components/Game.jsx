@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { GameCanvas } from './GameCanvas'
+import { ImpactFlash } from './ImpactFlash'
 import { InputBar } from './InputBar'
 import { HUD } from './HUD'
 import { StartScreen } from './StartScreen'
@@ -35,7 +36,10 @@ export function Game() {
   const [voiceEnabled, setVoiceEnabled] = useState(false)
   const [playerName, setPlayerName] = useState('')
   const [shaking, setShaking] = useState(false)
+  const [dangerFlashKey, setDangerFlashKey] = useState(0)
+  const [impacts, setImpacts] = useState([])
   const shakeTimerRef = useRef(null)
+  const impactIdRef = useRef(0)
 
   const aliensRef = useRef([])
   const scoreRef = useRef(0)
@@ -90,6 +94,15 @@ export function Game() {
     if (escaped.length > 0) {
       setLives(l => Math.max(0, l - escaped.length))
       if (!mutedRef.current) sounds.thud()
+
+      // Red vignette flash — increment key to force re-mount so animation restarts
+      setDangerFlashKey(k => k + 1)
+
+      // Bottom impact bursts at each escaped alien's x position
+      escaped.forEach(a => {
+        const impId = ++impactIdRef.current
+        setImpacts(prev => [...prev, { id: impId, x: a.x }])
+      })
     }
   }
 
@@ -128,6 +141,10 @@ export function Game() {
     setExplosions(prev => prev.filter(e => e.id !== expId))
   }, [])
 
+  const handleImpactDone = useCallback((impId) => {
+    setImpacts(prev => prev.filter(i => i.id !== impId))
+  }, [])
+
   const handleBeamDone = useCallback((beamId) => {
     setLaserBeams(prev => prev.filter(b => b.id !== beamId))
   }, [])
@@ -145,6 +162,7 @@ export function Game() {
     setAliens([])
     setExplosions([])
     setLaserBeams([])
+    setImpacts([])
     setGamePhase('playing')
   }
 
@@ -158,6 +176,9 @@ export function Game() {
 
   return (
     <div className={`game${shaking ? ' game--shake' : ''}`}>
+      {dangerFlashKey > 0 && (
+        <div key={dangerFlashKey} className="game__danger-flash" />
+      )}
       <HUD
         score={score}
         lives={lives}
@@ -174,6 +195,9 @@ export function Game() {
           laserBeams={laserBeams}
           onBeamDone={handleBeamDone}
         />
+        {impacts.map(imp => (
+          <ImpactFlash key={imp.id} x={imp.x} onDone={() => handleImpactDone(imp.id)} />
+        ))}
       </div>
       <InputBar aliens={aliens} onTarget={handleTarget} onKill={handleKill} />
     </div>
