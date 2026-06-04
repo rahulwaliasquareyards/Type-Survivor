@@ -113,13 +113,13 @@
 }
 
 .screen__name-input {
-  width: 160px;
+  width: 220px;
   background: rgba(255, 255, 0, 0.05);
   border: 1px solid #ffff00;
   color: #ffff00;
   font-family: 'Courier New', monospace;
   font-size: 1rem;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
   outline: none;
 }
