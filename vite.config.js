@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/Demo-Project/',
+  base: '/keyboardwarrior/',
   plugins: [react()],
   test: {
     environment: 'jsdom',

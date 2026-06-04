@@ -6,7 +6,7 @@ export function StartScreen({ onStart }) {
 
   return (
     <div className="screen">
-      <h1 className="screen__title">ALIEN TYPER</h1>
+      <h1 className="screen__title">KEYBOARD WARRIOR</h1>
       <p className="screen__subtitle">Defend your base — type words to blast the aliens!</p>
 
       <div className="screen__instructions">
