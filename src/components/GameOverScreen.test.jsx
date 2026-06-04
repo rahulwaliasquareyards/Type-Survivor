@@ -7,20 +7,19 @@ beforeEach(() => {
 })
 
 describe('GameOverScreen', () => {
-  it('displays the final score and level', () => {
-    render(<GameOverScreen score={340} level={3} onRestart={() => {}} />)
+  it('displays the final score', () => {
+    render(<GameOverScreen score={340} onRestart={() => {}} />)
     expect(screen.getByText(/340/)).toBeInTheDocument()
-    expect(screen.getByText(/Level 3/)).toBeInTheDocument()
   })
 
-  it('shows initials entry when score qualifies', () => {
-    render(<GameOverScreen score={999} level={5} onRestart={() => {}} />)
-    expect(screen.getByPlaceholderText('AAA')).toBeInTheDocument()
+  it('shows name entry when score qualifies', () => {
+    render(<GameOverScreen score={999} onRestart={() => {}} />)
+    expect(screen.getByPlaceholderText('Your name')).toBeInTheDocument()
   })
 
   it('calls onRestart when Play Again is clicked', () => {
     const onRestart = vi.fn()
-    render(<GameOverScreen score={0} level={1} onRestart={onRestart} />)
+    render(<GameOverScreen score={0} onRestart={onRestart} />)
     fireEvent.click(screen.getByText('PLAY AGAIN'))
     expect(onRestart).toHaveBeenCalledOnce()
   })

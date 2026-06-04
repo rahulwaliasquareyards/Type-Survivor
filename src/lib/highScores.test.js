@@ -13,7 +13,7 @@ describe('readScores', () => {
   })
 
   it('returns parsed scores from localStorage', () => {
-    const data = [{ initials: 'AAA', score: 100, level: 2 }]
+    const data = [{ name: 'Rahul', score: 100 }]
     localStorage.setItem(KEY, JSON.stringify(data))
     expect(readScores()).toEqual(data)
   })
@@ -25,47 +25,39 @@ describe('readScores', () => {
 })
 
 describe('qualifiesForLeaderboard', () => {
-  it('qualifies when fewer than 5 scores exist', () => {
+  it('qualifies when fewer than 10 scores exist', () => {
     expect(qualifiesForLeaderboard(1)).toBe(true)
   })
 
-  it('qualifies when score beats the lowest in top 5', () => {
-    const scores = [
-      { initials: 'AAA', score: 500, level: 3 },
-      { initials: 'BBB', score: 400, level: 2 },
-      { initials: 'CCC', score: 300, level: 2 },
-      { initials: 'DDD', score: 200, level: 1 },
-      { initials: 'EEE', score: 100, level: 1 },
-    ]
+  it('qualifies when score beats the lowest in top 10', () => {
+    const scores = Array.from({ length: 10 }, (_, i) => ({
+      name: `Player${i}`,
+      score: 500 - i * 40,
+    }))
     localStorage.setItem(KEY, JSON.stringify(scores))
-    expect(qualifiesForLeaderboard(150)).toBe(true)
-    expect(qualifiesForLeaderboard(50)).toBe(false)
+    expect(qualifiesForLeaderboard(200)).toBe(true)
+    expect(qualifiesForLeaderboard(10)).toBe(false)
   })
 })
 
 describe('saveScore', () => {
   it('saves a new score', () => {
-    saveScore('ABC', 200, 3)
+    saveScore('Rahul', 200)
     const scores = readScores()
     expect(scores).toHaveLength(1)
-    expect(scores[0]).toMatchObject({ initials: 'ABC', score: 200, level: 3 })
+    expect(scores[0]).toMatchObject({ name: 'Rahul', score: 200 })
   })
 
-  it('keeps only top 5 sorted by score descending', () => {
-    saveScore('A', 100, 1)
-    saveScore('B', 500, 3)
-    saveScore('C', 300, 2)
-    saveScore('D', 200, 2)
-    saveScore('E', 400, 3)
-    saveScore('F', 50, 1)
+  it('keeps only top 10 sorted by score descending', () => {
+    for (let i = 0; i < 12; i++) saveScore(`P${i}`, (i + 1) * 50)
     const scores = readScores()
-    expect(scores).toHaveLength(5)
-    expect(scores[0].score).toBe(500)
-    expect(scores[4].score).toBe(100)
+    expect(scores).toHaveLength(10)
+    expect(scores[0].score).toBe(600)
+    expect(scores[9].score).toBe(150)
   })
 
   it('stores the date', () => {
-    saveScore('TST', 10, 1)
+    saveScore('Test', 10)
     expect(readScores()[0].date).toBeTruthy()
   })
 })

@@ -37,7 +37,7 @@
   border: 1px solid #1a3a5c;
   border-radius: 8px;
   padding: 16px 24px;
-  min-width: 280px;
+  min-width: 320px;
 }
 
 .screen__leaderboard h2 {
@@ -50,7 +50,7 @@
 
 .screen__score-row {
   display: grid;
-  grid-template-columns: 24px 60px 1fr 60px;
+  grid-template-columns: 28px 1fr 80px;
   gap: 8px;
   padding: 4px 0;
   border-bottom: 1px solid #0a1a2c;
@@ -59,8 +59,8 @@
 
 .screen__rank { color: #557799; }
 .screen__initials { color: #ffff00; font-weight: bold; }
+.screen__name { color: #ffff00; font-weight: bold; }
 .screen__score-val { color: #00ff88; text-align: right; }
-.screen__level-val { color: #88ccff; text-align: right; }
 
 .screen__initials-entry {
   display: flex;
@@ -85,6 +85,22 @@
   border-radius: 4px;
   outline: none;
   text-transform: uppercase;
+}
+
+.screen__name-input {
+  width: 160px;
+  background: rgba(255, 255, 0, 0.05);
+  border: 1px solid #ffff00;
+  color: #ffff00;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  padding: 6px 10px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.screen__name-input:focus {
+  box-shadow: 0 0 8px rgba(255, 255, 0, 0.3);
 }
 
 .screen__btn {

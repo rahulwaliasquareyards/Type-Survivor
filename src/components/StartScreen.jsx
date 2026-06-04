@@ -18,13 +18,12 @@ export function StartScreen({ onStart }) {
 
       {scores.length > 0 && (
         <div className="screen__leaderboard">
-          <h2>High Scores</h2>
+          <h2>Leaderboard</h2>
           {scores.map((s, i) => (
             <div key={i} className="screen__score-row">
               <span className="screen__rank">{i + 1}.</span>
-              <span className="screen__initials">{s.initials}</span>
+              <span className="screen__name">{s.name || s.initials}</span>
               <span className="screen__score-val">{s.score}</span>
-              <span className="screen__level-val">Lvl {s.level}</span>
             </div>
           ))}
         </div>

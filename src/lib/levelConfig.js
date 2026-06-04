@@ -9,3 +9,12 @@ export function getLevelConfig(level) {
     codeWordRatio: level >= 3 ? 0.4 : 0.2,
   }
 }
+
+export function getDifficultyConfig(score) {
+  const tier = Math.floor(score / 150)
+  return {
+    tier: tier + 1,
+    maxSimultaneous: Math.min(2 + Math.floor(tier / 2), 6),
+    descendDuration: Math.max(18000 - tier * 1200, 5000),
+  }
+}

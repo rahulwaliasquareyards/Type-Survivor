@@ -2,33 +2,34 @@ import { useState } from 'react'
 import { readScores, qualifiesForLeaderboard, saveScore } from '../lib/highScores'
 import './Screen.css'
 
-export function GameOverScreen({ score, level, onRestart }) {
-  const [initials, setInitials] = useState('')
+export function GameOverScreen({ score, onRestart }) {
+  const [name, setName] = useState('')
   const [saved, setSaved] = useState(false)
   const qualifies = qualifiesForLeaderboard(score)
 
   function handleSave() {
-    if (!initials.trim()) return
-    saveScore(initials.toUpperCase().slice(0, 3), score, level)
+    if (!name.trim()) return
+    saveScore(name.trim().slice(0, 12), score)
     setSaved(true)
   }
 
-  const displayScores = readScores()
+  const displayScores = saved ? readScores() : readScores()
 
   return (
     <div className="screen">
       <h1 className="screen__title">GAME OVER</h1>
-      <p className="screen__subtitle">Score: {score} — Level {level}</p>
+      <p className="screen__subtitle">Score: {score}</p>
 
       {qualifies && !saved && score > 0 && (
         <div className="screen__initials-entry">
           <p>You made the leaderboard!</p>
           <input
-            className="screen__initials-input"
-            maxLength={3}
-            value={initials}
-            onChange={e => setInitials(e.target.value)}
-            placeholder="AAA"
+            className="screen__name-input"
+            maxLength={12}
+            value={name}
+            onChange={e => setName(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleSave()}
+            placeholder="Your name"
             autoFocus
           />
           <button className="screen__btn screen__btn--small" onClick={handleSave}>
@@ -39,13 +40,12 @@ export function GameOverScreen({ score, level, onRestart }) {
 
       {displayScores.length > 0 && (
         <div className="screen__leaderboard">
-          <h2>High Scores</h2>
+          <h2>Leaderboard</h2>
           {displayScores.map((s, i) => (
             <div key={i} className="screen__score-row">
               <span className="screen__rank">{i + 1}.</span>
-              <span className="screen__initials">{s.initials}</span>
+              <span className="screen__name">{s.name || s.initials}</span>
               <span className="screen__score-val">{s.score}</span>
-              <span className="screen__level-val">Lvl {s.level}</span>
             </div>
           ))}
         </div>
