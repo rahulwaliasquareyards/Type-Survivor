@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { TICK_MS } from '../lib/levelConfig'
 
-export { TICK_MS } from '../lib/levelConfig'
+export { TICK_MS }
 
 export function useGameLoop(isActive, onTickRef) {
   useEffect(() => {

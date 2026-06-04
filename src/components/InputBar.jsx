@@ -6,7 +6,7 @@ export function InputBar({ aliens, onTarget, onKill }) {
 
   useEffect(() => {
     inputRef.current?.focus()
-  })
+  }, [])
 
   function handleChange(e) {
     const value = e.target.value
