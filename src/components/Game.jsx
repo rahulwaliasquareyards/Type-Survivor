@@ -37,7 +37,6 @@ export function Game() {
   const scoreRef = useRef(0)
   const mutedRef = useRef(false)
   const voiceEnabledRef = useRef(false)
-  const lastSpokenAlienRef = useRef(null)
   const alienIdRef = useRef(0)
   const explosionIdRef = useRef(0)
   const laserBeamIdRef = useRef(0)
@@ -74,6 +73,7 @@ export function Game() {
     if (alive.length < maxSimultaneous) {
       const word = getWordRef.current()
       next = [...alive, makeAlien(++alienIdRef.current, word)]
+      if (voiceEnabledRef.current) speak(word)
     }
 
     aliensRef.current = next
@@ -88,16 +88,6 @@ export function Game() {
   useGameLoop(gamePhase === 'playing', onTickRef)
 
   const handleTarget = useCallback((alienId) => {
-    // Speak the newly targeted word (outside setState to avoid StrictMode double-call)
-    if (alienId && alienId !== lastSpokenAlienRef.current && voiceEnabledRef.current) {
-      const alien = aliensRef.current.find(a => a.id === alienId)
-      if (alien) {
-        speak(alien.word)
-        lastSpokenAlienRef.current = alienId
-      }
-    }
-    if (!alienId) lastSpokenAlienRef.current = null
-
     setAliens(prev => {
       const next = prev.map(a => ({ ...a, isTargeted: a.id === alienId }))
       aliensRef.current = next
@@ -136,7 +126,6 @@ export function Game() {
     explosionIdRef.current = 0
     scoreRef.current = 0
     aliensRef.current = []
-    lastSpokenAlienRef.current = null
     cancelSpeech()
     setScore(0)
     setLives(INITIAL_LIVES)
