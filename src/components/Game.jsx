@@ -68,7 +68,7 @@ export function Game() {
       setRemainingInWave(nextConfig.aliensPerWave)
       setAliens([])
       setGamePhase('playing')
-    }, 1500)
+    }, 5000)
 
     return () => clearTimeout(t)
   }, [aliens.length, remainingInWave, gamePhase])

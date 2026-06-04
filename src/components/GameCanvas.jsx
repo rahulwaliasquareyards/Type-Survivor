@@ -2,13 +2,14 @@ import { Alien } from './Alien'
 import { Explosion } from './Explosion'
 import './GameCanvas.css'
 
-const STARS = Array.from({ length: 80 }, (_, i) => ({
+const STARS = Array.from({ length: 120 }, (_, i) => ({
   id: i,
   left: (i * 97 + 13) % 100,
-  top: (i * 53 + 7) % 100,
   size: 1 + (i % 3),
-  duration: 2 + (i % 4),
-  delay: -(i % 5),
+  fallDuration: 6 + (i % 8) * 2,
+  fallDelay: -((i * 37 + 11) % 22),
+  twinkleDuration: 1.5 + (i % 4) * 0.5,
+  twinkleDelay: -(i % 4),
 }))
 
 export function GameCanvas({ aliens = [], explosions = [], onExplosionDone }) {
@@ -21,11 +22,10 @@ export function GameCanvas({ aliens = [], explosions = [], onExplosionDone }) {
             className="star"
             style={{
               left: `${s.left}%`,
-              top: `${s.top}%`,
               width: `${s.size}px`,
               height: `${s.size}px`,
-              animationDuration: `${s.duration}s`,
-              animationDelay: `${s.delay}s`,
+              animationDuration: `${s.fallDuration}s, ${s.twinkleDuration}s`,
+              animationDelay: `${s.fallDelay}s, ${s.twinkleDelay}s`,
             }}
           />
         ))}

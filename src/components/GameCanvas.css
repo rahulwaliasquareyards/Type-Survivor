@@ -1,6 +1,6 @@
 .game-canvas {
   position: relative;
-  flex: 1;
+  height: 100%;
   overflow: hidden;
   background: #000510;
 }
@@ -12,12 +12,18 @@
 
 .star {
   position: absolute;
+  top: 0;
   background: #ffffff;
   border-radius: 50%;
-  animation: twinkle linear infinite;
+  animation: star-fall linear infinite, twinkle ease-in-out infinite alternate;
+}
+
+@keyframes star-fall {
+  from { transform: translateY(-4px); }
+  to   { transform: translateY(105vh); }
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50%       { opacity: 1; }
+  from { opacity: 0.15; }
+  to   { opacity: 1; }
 }
