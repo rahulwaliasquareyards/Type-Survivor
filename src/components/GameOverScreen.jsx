@@ -20,7 +20,7 @@ export function GameOverScreen({ score, level, onRestart }) {
       <h1 className="screen__title">GAME OVER</h1>
       <p className="screen__subtitle">Score: {score} — Level {level}</p>
 
-      {qualifies && !saved && (
+      {qualifies && !saved && score > 0 && (
         <div className="screen__initials-entry">
           <p>You made the leaderboard!</p>
           <input

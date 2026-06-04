@@ -11,7 +11,7 @@ const STARS = Array.from({ length: 80 }, (_, i) => ({
   delay: -(i % 5),
 }))
 
-export function GameCanvas({ aliens, explosions, onExplosionDone }) {
+export function GameCanvas({ aliens = [], explosions = [], onExplosionDone }) {
   return (
     <div className="game-canvas">
       <div className="starfield" aria-hidden="true">
