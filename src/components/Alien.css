@@ -15,15 +15,16 @@
 
 .alien__word {
   background: rgba(0, 0, 0, 0.75);
-  color: #00ff88;
+  color: var(--alien-color, #00ff88);
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
   font-weight: bold;
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px solid #00ff88;
+  border: 1px solid var(--alien-color, #00ff88);
   white-space: nowrap;
   margin-top: 4px;
+  box-shadow: 0 0 6px color-mix(in srgb, var(--alien-color, #00ff88) 40%, transparent);
 }
 
 .alien--targeted .alien__word {

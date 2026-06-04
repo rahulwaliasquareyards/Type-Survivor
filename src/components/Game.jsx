@@ -34,6 +34,8 @@ export function Game() {
   const [muted, setMuted] = useState(false)
   const [voiceEnabled, setVoiceEnabled] = useState(false)
   const [playerName, setPlayerName] = useState('')
+  const [shaking, setShaking] = useState(false)
+  const shakeTimerRef = useRef(null)
 
   const aliensRef = useRef([])
   const scoreRef = useRef(0)
@@ -112,6 +114,9 @@ export function Game() {
       setLaserBeams(beams => [...beams, { id: beamId, x: alien.x, y: alien.y }])
       setScore(s => s + alien.word.length * 10)
       if (!mutedRef.current) sounds.laser()
+      clearTimeout(shakeTimerRef.current)
+      setShaking(true)
+      shakeTimerRef.current = setTimeout(() => setShaking(false), 280)
 
       const next = prev.filter(a => a.id !== alienId).map(a => ({ ...a, isTargeted: false }))
       aliensRef.current = next
@@ -152,7 +157,7 @@ export function Game() {
   }
 
   return (
-    <div className="game">
+    <div className={`game${shaking ? ' game--shake' : ''}`}>
       <HUD
         score={score}
         lives={lives}
