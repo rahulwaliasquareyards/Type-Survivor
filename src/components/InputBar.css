@@ -1,0 +1,34 @@
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border-top: 1px solid #1a3a5c;
+}
+
+.input-bar__label {
+  color: #1a5c8c;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.input-bar__input {
+  flex: 1;
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  padding: 8px 14px;
+  border-radius: 4px;
+  outline: none;
+  caret-color: #00ff88;
+}
+
+.input-bar__input:focus {
+  border-color: #00ffcc;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
