@@ -25,12 +25,12 @@ describe('readScores', () => {
 })
 
 describe('qualifiesForLeaderboard', () => {
-  it('qualifies when fewer than 10 scores exist', () => {
+  it('qualifies when fewer than 5 scores exist', () => {
     expect(qualifiesForLeaderboard(1)).toBe(true)
   })
 
-  it('qualifies when score beats the lowest in top 10', () => {
-    const scores = Array.from({ length: 10 }, (_, i) => ({
+  it('qualifies when score beats the lowest in top 5', () => {
+    const scores = Array.from({ length: 5 }, (_, i) => ({
       name: `Player${i}`,
       score: 500 - i * 40,
     }))
@@ -48,12 +48,12 @@ describe('saveScore', () => {
     expect(scores[0]).toMatchObject({ name: 'Rahul', score: 200 })
   })
 
-  it('keeps only top 10 sorted by score descending', () => {
-    for (let i = 0; i < 12; i++) saveScore(`P${i}`, (i + 1) * 50)
+  it('keeps only top 5 sorted by score descending', () => {
+    for (let i = 0; i < 7; i++) saveScore(`P${i}`, (i + 1) * 50)
     const scores = readScores()
-    expect(scores).toHaveLength(10)
-    expect(scores[0].score).toBe(600)
-    expect(scores[9].score).toBe(150)
+    expect(scores).toHaveLength(5)
+    expect(scores[0].score).toBe(350)
+    expect(scores[4].score).toBe(150)
   })
 
   it('stores the date', () => {
