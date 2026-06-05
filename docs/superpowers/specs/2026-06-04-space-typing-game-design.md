@@ -81,13 +81,6 @@ State lives entirely in `Game.jsx` and flows down as props. No external state li
 7. All aliens in wave cleared → **Level Complete** → next level starts
 8. All 3 lives lost → **Game Over** screen with score + high score entry
 
-### Level Scaling
-
-| Level | Aliens per wave | Descend speed | Max simultaneous |
-|-------|----------------|---------------|-----------------|
-| 1 | 10 | Slow (60s to cross) | 3 |
-| 2 | 15 | Medium (45s to cross) | 4 |
-| 3+ | +5 per level | +10% faster per level | up to 6 |
 
 ### Word Selection
 
